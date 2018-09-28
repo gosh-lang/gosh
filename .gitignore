@@ -1,0 +1,9 @@
+/.idea/
+/.vscode/
+
+/vendor/
+
+/internal/gofuzz/workdir/
+
+*.out
+*.test

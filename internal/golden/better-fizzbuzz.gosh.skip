@@ -1,0 +1,23 @@
+#!/usr/bin/env gosh
+
+// Write a program that prints the numbers from 1 to 100.
+// But for multiples of three print “Fizz” instead of the number and for the multiples of five print “Buzz”.
+// For numbers which are multiples of both three and five print “FizzBuzz”.
+
+var i = 1 // TODO remove
+for i = 1; i <= 100; i++ {
+	// TODO replace with :=
+	var m3 = i%3 == 0
+	var m5 = i%5 == 0
+
+	switch {
+	case m3 && m5:
+		println("FizzBuzz")
+	case m3:
+		println("Fizz")
+	case m5:
+		println("Buzz")
+	default:
+		println(i)
+	}
+}

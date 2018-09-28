@@ -1,0 +1,37 @@
+---
+linters-settings:
+  govet:
+    use-installed-packages: true
+
+  gocyclo:
+    min-complexity: 30
+
+  maligned:
+    suggest-new: true
+
+  # prevent import of go/ast, go/parser, etc.
+  depguard:
+    list-type: blacklist
+    include-go-root: true
+    packages:
+      - go/
+
+  lll:
+    line-length: 140
+    tab-width: 4
+
+  unused:
+    check-exported: true
+
+  unparam:
+    algo: rta
+    check-exported: true
+
+linters:
+  enable-all: true
+
+issues:
+  exclude-use-default: false
+  exclude:
+    # gas: Duplicates errcheck, but with more false positives like strings.Builder.WriteString
+    - "G104: Errors unhandled"

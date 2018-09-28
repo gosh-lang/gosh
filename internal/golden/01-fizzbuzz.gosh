@@ -1,0 +1,21 @@
+#!/usr/bin/env gosh
+
+var i = 1
+for i = 1; i <= 100; i++ {
+	var m3 = (i%3 == 0)
+	var m5 = (i%5 == 0)
+
+	if (m3 && m5) {
+		println("FizzBuzz")
+		continue
+	}
+	if (m3) {
+		println("Fizz")
+		continue
+	}
+	if (m5) {
+		println("Buzz")
+		continue
+	}
+	println(i)
+}

@@ -1,0 +1,12 @@
+func fibonacci(x int) {
+	switch x {
+	case 0:
+		return 0
+	case 1:
+		return 1
+	default:
+		return fibonacci(x-1) + fibonacci(x-2)
+	}
+}
+
+println(fibonacci(42))
