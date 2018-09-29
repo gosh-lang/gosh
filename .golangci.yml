@@ -33,5 +33,8 @@ linters:
 issues:
   exclude-use-default: false
   exclude:
-    # gas: Duplicates errcheck, but with more false positives like strings.Builder.WriteString
+    # gosec: Duplicates errcheck, but with more false positives like strings.Builder.WriteString
     - "G104: Errors unhandled"
+
+    # gosec: False positive triggered by `source, err := ioutil.ReadFile(f)`
+    - "G304: Potential file inclusion via variable"

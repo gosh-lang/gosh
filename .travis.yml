@@ -1,0 +1,28 @@
+dist: trusty
+language: go
+
+go:
+  - 1.11.x
+  - master
+
+env:
+  - GO111MODULE=off
+  - GO111MODULE=on
+
+go_import_path: gosh-lang.org/gosh
+
+install:
+  - make init
+
+script:
+  - make test
+
+  # golangci-lint does not work with modules yet
+  # https://github.com/golangci/golangci-lint/issues/178
+  - if [ "$GO111MODULE" = "on" ]; then
+      go mod vendor -v;
+    fi
+  - env GO111MODULE=off make check;
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -f cover.out -X fix -e GO111MODULE
