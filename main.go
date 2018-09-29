@@ -54,7 +54,7 @@ func extractGoVersion(s string) string {
 }
 
 func goVersion() string {
-	cmd := exec.Command("go", "version") //nolint:gas
+	cmd := exec.Command("go", "version") //nolint:gosec
 	b, err := cmd.CombinedOutput()
 	if err != nil {
 		return ""

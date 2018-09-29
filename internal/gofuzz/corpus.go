@@ -8,7 +8,7 @@
 package gofuzz
 
 import (
-	"crypto/sha1"
+	"crypto/sha1" //nolint:gosec // go-fuzz uses SHA1 for non-cryptographic hashing
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -39,6 +39,7 @@ func AddFileToCorpus(name string, data []byte) {
 
 // AddDataToCorpus adds unnamed Gosh source code fragment to the go-fuzz corpus.
 func AddDataToCorpus(prefix string, data []byte) {
-	name := fmt.Sprintf("%s-%040x.gosh", prefix, sha1.Sum(data))
+	// go-fuzz uses SHA1 for non-cryptographic hashing
+	name := fmt.Sprintf("%s-%040x.gosh", prefix, sha1.Sum(data)) //nolint:gosec
 	AddFileToCorpus(name, data)
 }

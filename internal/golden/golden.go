@@ -40,7 +40,7 @@ func init() {
 		panic(err)
 	}
 	for _, f := range files {
-		source, err := ioutil.ReadFile(f) //nolint:gas
+		source, err := ioutil.ReadFile(f)
 		if err != nil {
 			panic(err)
 		}
