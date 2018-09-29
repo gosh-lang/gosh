@@ -1,5 +1,7 @@
 # Gosh
 
+[![Travis CI Build Status](https://travis-ci.org/gosh-lang/gosh.svg)](https://travis-ci.org/gosh-lang/gosh)
+
 Gosh is an interpreted language for Go ecosystem written in Go.
 
 It is in super-early pre-alpha stage. It is also an experiment in community building.
