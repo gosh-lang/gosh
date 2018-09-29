@@ -116,38 +116,79 @@ func eval(line string, scope *objects.Scope) {
 	}
 }
 
+func evalFile(filename string) {
+	b, err := ioutil.ReadFile(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	scope := objects.NewScope(objects.Builtin(os.Stdout))
+	eval(string(b), scope)
+}
+
+// readREPLHistory reads REPL history from from file and returns file name where it should be wrote at exit.
+// It returns empty string if history can't be wrote at exit.
+func readREPLHistory(liner *liner.State) string {
+	var historyFilename string
+	u, err := user.Current()
+	if err == nil && u.HomeDir != "" {
+		historyFilename = filepath.Join(u.HomeDir, ".gosh_history")
+	}
+	if historyFilename == "" {
+		// we failed to detect user's home directory, so we can't read and write history file
+		return ""
+	}
+
+	f, err := os.Open(historyFilename)
+	if err != nil && os.IsNotExist(err) {
+		// history file does not exist, but we can create it at exit
+		return historyFilename
+	}
+	if err != nil {
+		log.Printf("Warning: failed to open history file %s: %s.", historyFilename, err)
+		return ""
+	}
+	defer func() {
+		if err = f.Close(); err != nil {
+			log.Printf("Warning: failed to close history file %s: %s.", historyFilename, err)
+		}
+	}()
+
+	if _, err = liner.ReadHistory(f); err != nil {
+		log.Printf("Warning: failed to read history file %s: %s.", historyFilename, err)
+	}
+	return historyFilename
+}
+
+func writeREPLHistory(liner *liner.State, historyFilename string) {
+	f, err := os.Create(historyFilename)
+	if err != nil {
+		log.Printf("Warning: failed to create history file %s: %s.", historyFilename, err)
+		return
+	}
+	defer func() {
+		if err = f.Close(); err != nil {
+			log.Printf("Warning: failed to close history file %s: %s.", historyFilename, err)
+		}
+	}()
+
+	if _, err = liner.WriteHistory(f); err != nil {
+		log.Printf("Warning: failed to write history file %s: %s.", historyFilename, err)
+	}
+}
+
 func runREPL() {
 	fmt.Printf("Gosh v%s. https://gosh-lang.org/\n", Version)
 	fmt.Printf("Built with Go v%s.\n", extractGoVersion(runtime.Version()))
 	fmt.Printf("Runtime Go v%s.\n", extractGoVersion(goVersion()))
 
 	liner := liner.NewLiner()
-
-	var historyFilename string
-	u, err := user.Current()
-	if err == nil && u.HomeDir != "" {
-		historyFilename = filepath.Join(u.HomeDir, ".gosh_history")
-	}
-	if historyFilename != "" {
-		f, err := os.Open(historyFilename)
-		switch {
-		case err == nil:
-			liner.ReadHistory(f)
-			f.Close()
-		case os.IsNotExist(err):
-			// nothing
-		default:
-			log.Printf("Warning: failed to read history file %s.", historyFilename)
-		}
-	}
-
+	historyFilename := readREPLHistory(liner)
 	defer func() {
 		fmt.Println()
-
-		os.Create(historyFilename)
-
+		writeREPLHistory(liner, historyFilename)
 		if err := liner.Close(); err != nil {
-			log.Print(err)
+			log.Printf("Failed to close liner: %s.", err)
 		}
 	}()
 
@@ -166,16 +207,6 @@ func runREPL() {
 	}
 }
 
-func evalFile(filename string) {
-	b, err := ioutil.ReadFile(filename)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	scope := objects.NewScope(objects.Builtin(os.Stdout))
-	eval(string(b), scope)
-}
-
 func main() {
 	log.SetFlags(0)
 
@@ -186,10 +217,9 @@ func main() {
 	kingpin.CommandLine.HelpFlag.Short('h')
 	kingpin.Parse()
 
-	switch *fileArg {
-	case "":
+	if *fileArg == "" {
 		runREPL()
-	default:
+	} else {
 		evalFile(*fileArg)
 	}
 }
