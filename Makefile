@@ -1,15 +1,17 @@
 all: test
 
 init:
-	go get -u golang.org/x/tools/cmd/stringer \
-				github.com/dvyukov/go-fuzz/... \
-				github.com/golangci/golangci-lint/cmd/golangci-lint
+	go get -u -v golang.org/x/tools/cmd/stringer \
+					github.com/dvyukov/go-fuzz/go-fuzz-build \
+					github.com/dvyukov/go-fuzz/go-fuzz \
+					github.com/golangci/golangci-lint/cmd/golangci-lint
 
-	go test -i -v ./...
+	go get -t -v ./...
 
 install:
 	go generate ./...
 	go install -v ./...
+	go test -i -v ./...
 
 test: install
 	go build -v -tags gofuzz ./...
