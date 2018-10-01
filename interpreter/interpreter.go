@@ -62,7 +62,7 @@ func (i *Interpreter) Eval(ctx context.Context, node ast.Node, scope *objects.Sc
 			res = i.Eval(ctx, s, scope)
 			if res != nil {
 				switch res.Type() {
-				case objects.CONTINUE:
+				case objects.ContinueType:
 					return res
 				}
 			}
@@ -206,17 +206,17 @@ func (i *Interpreter) evalInfixBooleanExpression(operator string, left, right bo
 
 func (i *Interpreter) evalInfixExpression(operator string, left, right objects.Object) objects.Object {
 	switch left.Type() {
-	case objects.INTEGER:
+	case objects.IntegerType:
 		switch right.Type() {
-		case objects.INTEGER:
+		case objects.IntegerType:
 			l := left.(*objects.Integer).Value
 			r := right.(*objects.Integer).Value
 			return i.evalInfixIntegerExpression(operator, l, r)
 		}
 
-	case objects.BOOLEAN:
+	case objects.BooleanType:
 		switch right.Type() {
-		case objects.BOOLEAN:
+		case objects.BooleanType:
 			l := left.(*objects.Boolean).Value
 			r := right.(*objects.Boolean).Value
 			return i.evalInfixBooleanExpression(operator, l, r)
@@ -266,7 +266,7 @@ func (i *Interpreter) evalForStatement(ctx context.Context, node *ast.ForStateme
 
 		if body != nil {
 			switch body.Type() {
-			case objects.CONTINUE:
+			case objects.ContinueType:
 				continue
 			}
 		}
@@ -287,7 +287,7 @@ func (i *Interpreter) evalIfStatement(ctx context.Context, node *ast.IfStatement
 	body := i.Eval(ctx, node.Body, scope)
 	if body != nil {
 		switch body.Type() {
-		case objects.CONTINUE:
+		case objects.ContinueType:
 			return body
 		}
 	}
