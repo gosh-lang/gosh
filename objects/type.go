@@ -14,10 +14,10 @@ type Type int
 
 // The list of object types.
 const (
-	INTEGER Type = iota
-	BOOLEAN
-	STRING
-	FUNCTION
-	GOFUNCTION
-	CONTINUE
+	IntegerType Type = iota
+	BooleanType
+	StringType
+	FunctionType
+	GoFunctionType
+	ContinueType
 )

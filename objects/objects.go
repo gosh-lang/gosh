@@ -28,8 +28,8 @@ type Integer struct {
 	Value int
 }
 
-// Type returns INTEGER.
-func (i *Integer) Type() Type { return INTEGER }
+// Type returns IntegerType.
+func (i *Integer) Type() Type { return IntegerType }
 
 func (i *Integer) String() string { return strconv.Itoa(i.Value) }
 
@@ -38,8 +38,8 @@ type Boolean struct {
 	Value bool
 }
 
-// Type returns BOOLEAN.
-func (b *Boolean) Type() Type { return BOOLEAN }
+// Type returns BooleanType.
+func (b *Boolean) Type() Type { return BooleanType }
 
 func (b *Boolean) String() string { return strconv.FormatBool(b.Value) }
 
@@ -48,16 +48,16 @@ type String struct {
 	Value string
 }
 
-// Type returns STRING.
-func (s *String) Type() Type { return STRING }
+// Type returns StringType.
+func (s *String) Type() Type { return StringType }
 
 func (s *String) String() string { return s.Value }
 
 // Continue represents continue runtime object.
 type Continue struct{}
 
-// Type returns CONTINUE.
-func (c *Continue) Type() Type { return CONTINUE }
+// Type returns ContinueType.
+func (c *Continue) Type() Type { return ContinueType }
 
 func (c *Continue) String() string {
 	return "continue"
@@ -70,8 +70,8 @@ type Function struct {
 	Scope      *Scope
 }
 
-// Type returns FUNCTION.
-func (f *Function) Type() Type { return FUNCTION }
+// Type returns FunctionType.
+func (f *Function) Type() Type { return FunctionType }
 
 func (f *Function) String() string {
 	params := make([]string, len(f.Parameters))
@@ -92,8 +92,8 @@ type GoFunction struct {
 	Func func(args ...Object) Object
 }
 
-// Type returns GOFUNCTION.
-func (gf *GoFunction) Type() Type { return GOFUNCTION }
+// Type returns GoFunctionType.
+func (gf *GoFunction) Type() Type { return GoFunctionType }
 
 func (gf *GoFunction) String() string { return reflect.ValueOf(gf.Func).String() }
 
