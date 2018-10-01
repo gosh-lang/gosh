@@ -7,7 +7,7 @@
 
 // +build gofuzz
 
-package interpreter
+package interpreter // import "gosh-lang.org/gosh/interpreter"
 
 import (
 	"context"

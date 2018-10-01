@@ -7,7 +7,7 @@
 
 // +build gofuzz
 
-package parser
+package parser // import "gosh-lang.org/gosh/parser"
 
 import (
 	"gosh-lang.org/gosh/scanner"

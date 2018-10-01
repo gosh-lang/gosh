@@ -5,7 +5,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-package objects
+package objects // import "gosh-lang.org/gosh/objects"
 
 // A Scope maintains the set of named language entities declared in the scope
 // and a link to the immediately surrounding (outer) scope.

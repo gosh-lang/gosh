@@ -6,7 +6,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 // Package scanner implements a scanner for Gosh source text.
-package scanner
+package scanner // import "gosh-lang.org/gosh/scanner"
 
 import (
 	"fmt"
