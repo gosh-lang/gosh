@@ -5,7 +5,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-package parser
+package parser // import "gosh-lang.org/gosh/parser"
 
 import (
 	"strings"
@@ -257,7 +257,7 @@ func TestParser(t *testing.T) {
 				})
 				require.NoError(t, err)
 				p := New(s, &Config{
-					// crashOnError: true,
+				// crashOnError: true,
 				})
 				program := p.ParseProgram()
 				require.Nil(t, p.Errors(), "%s", formatErrors(p.Errors()))

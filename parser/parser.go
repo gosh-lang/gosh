@@ -5,8 +5,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-// Package parser implements a parser for Gosh source files.
-package parser
+// package parser // import "gosh-lang.org/gosh/parser" implements a parser for Gosh source files.
+package parser // import "gosh-lang.org/gosh/parser"
 
 import (
 	"fmt"
