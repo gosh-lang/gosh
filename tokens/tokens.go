@@ -6,7 +6,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 // Package tokens defines constants representing the lexical tokens of the Gosh programming language.
-package tokens
+package tokens // import "gosh-lang.org/gosh/tokens"
 
 import (
 	"fmt"

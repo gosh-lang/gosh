@@ -6,7 +6,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 // Package parser implements a parser for Gosh source files.
-package parser
+package parser // import "gosh-lang.org/gosh/parser"
 
 import (
 	"fmt"
