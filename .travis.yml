@@ -15,6 +15,7 @@ install:
   - make init
 
 script:
+  - git diff --exit-code
   - make test
 
   # golangci-lint does not work with modules yet
