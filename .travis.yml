@@ -13,6 +13,7 @@ go_import_path: gosh-lang.org/gosh
 
 install:
   - make init
+  - git checkout go.mod go.sum
 
 script:
   - make test
