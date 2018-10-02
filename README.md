@@ -45,7 +45,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-Current code uses the following decencies:
+Current code uses the following dependencies:
 
 * https://gopkg.in/alecthomas/kingpin.v2 ([MIT License](https://github.com/alecthomas/kingpin/blob/v2.2.6/COPYING))
 * https://github.com/alecthomas/template ([BSD 3-Clause Revised License](https://github.com/alecthomas/template/blob/master/LICENSE))
