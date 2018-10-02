@@ -257,7 +257,7 @@ func TestParser(t *testing.T) {
 				})
 				require.NoError(t, err)
 				p := New(s, &Config{
-				// crashOnError: true,
+					// crashOnError: true,
 				})
 				program := p.ParseProgram()
 				require.Nil(t, p.Errors(), "%s", formatErrors(p.Errors()))

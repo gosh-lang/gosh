@@ -9,7 +9,6 @@
 package ast // import "gosh-lang.org/gosh/ast"
 
 import (
-	// import "gosh-lang.org/gosh/ast"
 	"fmt"
 	"strings"
 )
