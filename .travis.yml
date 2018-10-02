@@ -13,9 +13,11 @@ go_import_path: gosh-lang.org/gosh
 
 install:
   - make init
+  - git checkout go.mod go.sum
 
 script:
   - make test
+  - git diff --exit-code
 
   # golangci-lint does not work with modules yet
   # https://github.com/golangci/golangci-lint/issues/178
