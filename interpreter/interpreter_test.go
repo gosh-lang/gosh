@@ -95,6 +95,28 @@ func TestInfixExpression(t *testing.T) {
 	}
 }
 
+func TestPrefixExpression(t *testing.T) {
+	for input, expected := range map[string]bool{
+		// Since we already tested infix `==`, use it here
+		// to have a nice way to check for different result types.
+		`-(10) == -10`:   true,
+		`!true == false`: true,
+		`!!true == true`: true,
+		`!false == true`: true,
+		`-(10) == 10`:    false,
+		`!true == true`:  false,
+	} {
+		t.Run(input, func(t *testing.T) {
+			gofuzz.AddDataToCorpus("interpreter", []byte(input))
+
+			actual, res := eval(t, input)
+			require.IsType(t, &objects.Boolean{}, actual)
+			assert.Equal(t, expected, actual.(*objects.Boolean).Value)
+			assert.Empty(t, res.String())
+		})
+	}
+}
+
 func TestLen(t *testing.T) {
 	for input, expected := range map[string]int{
 		`len("FizzBuzz")`: 8,
