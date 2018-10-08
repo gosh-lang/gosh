@@ -114,6 +114,9 @@ func (i *Interpreter) Eval(ctx context.Context, node ast.Node, scope *objects.Sc
 	case *ast.IntegerLiteral:
 		return &objects.Integer{Value: node.Value}
 
+	case *ast.FloatLiteral:
+		return &objects.Float{Value: node.Value}
+
 	case *ast.BooleanLiteral:
 		return &objects.Boolean{Value: node.Value}
 
@@ -188,6 +191,37 @@ func (i *Interpreter) evalInfixIntegerExpression(operator string, left, right in
 	}
 }
 
+func (i *Interpreter) evalInfixFloatExpression(operator string, left, right float64) objects.Object {
+	switch operator {
+	case "+":
+		return &objects.Float{Value: left + right}
+	case "-":
+		return &objects.Float{Value: left - right}
+	case "*":
+		return &objects.Float{Value: left * right}
+	case "/":
+		return &objects.Float{Value: left / right}
+
+	case "<":
+		return &objects.Boolean{Value: left < right}
+	case "<=":
+		return &objects.Boolean{Value: left <= right}
+	case ">":
+		return &objects.Boolean{Value: left > right}
+	case ">=":
+		return &objects.Boolean{Value: left >= right}
+	case "==":
+		return &objects.Boolean{Value: left == right}
+	case "!=":
+		return &objects.Boolean{Value: left != right}
+
+	default:
+		i.crash("unhandled infix expression operator %s for two Floats", operator)
+		panic("not reached")
+	}
+}
+
+
 func (i *Interpreter) evalInfixBooleanExpression(operator string, left, right bool) objects.Object {
 	switch operator {
 	case "==":
@@ -212,6 +246,14 @@ func (i *Interpreter) evalInfixExpression(operator string, left, right objects.O
 			l := left.(*objects.Integer).Value
 			r := right.(*objects.Integer).Value
 			return i.evalInfixIntegerExpression(operator, l, r)
+		}
+
+	case objects.FloatType:
+		switch right.Type() {
+		case objects.FloatType:
+			l := left.(*objects.Float).Value
+			r := right.(*objects.Float).Value
+			return i.evalInfixFloatExpression(operator, l, r)
 		}
 
 	case objects.BooleanType:

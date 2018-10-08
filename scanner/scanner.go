@@ -423,6 +423,24 @@ func (s *Scanner) NextToken() tokens.Token {
 			if ok {
 				tok.Type = tokens.Integer
 			}
+
+			if s.r == '.' {
+				// Consume '.' and see if we can parse a float
+				s.readRune()
+				tok.Type = tokens.Float
+
+				s.peekRune()
+
+				lit, ok = s.readInt()
+				switch {
+				case ok:
+					tok.Literal = fmt.Sprintf("%v.%v", tok.Literal, lit)
+				case len(lit) > 0:
+					tok.Literal = fmt.Sprintf("%v.%v", tok.Literal, lit)
+					tok.Type = tokens.Illegal
+				}
+			}
+
 			insertSemicolon = true
 			return tok // l.readRune() already called by l.readInt(), so exit early
 

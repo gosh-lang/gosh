@@ -15,6 +15,7 @@ type Type int
 // The list of object types.
 const (
 	IntegerType Type = iota
+	FloatType
 	BooleanType
 	StringType
 	FunctionType

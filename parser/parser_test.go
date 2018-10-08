@@ -246,6 +246,28 @@ func TestParser(t *testing.T) {
 				},
 			},
 		},
+		`var myfloat = 3.4`: &ast.VarStatement{
+			Token: tokens.Token{Offset: 0, Type: tokens.Var, Literal: "var"},
+			Name: &ast.Identifier{
+				Token: tokens.Token{Offset: 4, Type: tokens.Identifier, Literal: "myfloat"},
+				Value: "myfloat",
+			},
+			Value: &ast.FloatLiteral{
+				Token: tokens.Token{Offset: 14, Type: tokens.Float, Literal: "3.4"},
+				Value: 3.4,
+			},
+		},
+		`myfloat += 2.0`: &ast.AssignStatement{
+			Token: tokens.Token{Offset: 8, Type: tokens.SumAssignment, Literal: "+="},
+			Name: &ast.Identifier{
+				Token: tokens.Token{Offset: 0, Type: tokens.Identifier, Literal: "myfloat"},
+				Value: "myfloat",
+			},
+			Value: &ast.FloatLiteral{
+				Token: tokens.Token{Offset: 11, Type: tokens.Float, Literal: "2.0"},
+				Value: 2.0,
+			},
+		},
 	} {
 		t.Run(source, func(t *testing.T) {
 			formal := source + ";\n"

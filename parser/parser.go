@@ -55,6 +55,7 @@ func New(s *scanner.Scanner, config *Config) *Parser {
 		tokens.Comment: p.parseComment, // TODO really?!
 
 		tokens.Integer:    p.parseIntegerLiteral,
+		tokens.Float:      p.parseFloatLiteral,
 		tokens.String:     p.parseStringLiteral,
 		tokens.Identifier: p.parseIdentifier,
 
@@ -124,6 +125,7 @@ var precedences = map[tokens.Type]int{
 	tokens.LBRACE:               LowestPrec,
 	tokens.RBRACE:               LowestPrec,
 	tokens.RPAREN:               LowestPrec,
+	tokens.Period:               LowestPrec,
 	tokens.Colon:                LowestPrec,
 	tokens.Identifier:           LowestPrec,
 	tokens.Assignment:           LowestPrec,
@@ -135,6 +137,7 @@ var precedences = map[tokens.Type]int{
 	tokens.False:                LowestPrec,
 	tokens.Func:                 LowestPrec,
 	tokens.Integer:              LowestPrec,
+	tokens.Float:                LowestPrec,
 	tokens.Increment:            LowestPrec,
 	tokens.Switch:               LowestPrec,
 	tokens.Case:                 LowestPrec,
@@ -300,6 +303,19 @@ func (p *Parser) parseIntegerLiteral() ast.Expression {
 	}
 
 	lit.Value = int(value)
+	return lit
+}
+
+func (p *Parser) parseFloatLiteral() ast.Expression {
+	lit := &ast.FloatLiteral{Token: p.curToken}
+
+	value, err := strconv.ParseFloat(p.curToken.Literal, 64)
+	if err != nil {
+		p.addParsingError("could not parse %q as float", p.curToken.Literal)
+		return nil
+	}
+
+	lit.Value = float64(value)
 	return lit
 }
 
