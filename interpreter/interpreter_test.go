@@ -93,6 +93,40 @@ func TestInfixExpression(t *testing.T) {
 			assert.Empty(t, res.String())
 		})
 	}
+
+	for input, expected := range map[string]bool{
+		`7.0 < 42.0`:  true,
+		`7.0 <= 42.0`: true,
+		`7.0 > 42.0`:  false,
+		`7.0 >= 42.0`: false,
+		`7.0 == 42.0`: false,
+		`7.0 != 42.0`: true,
+	} {
+		t.Run(input, func(t *testing.T) {
+			gofuzz.AddDataToCorpus("interpreter", []byte(input))
+
+			actual, res := eval(t, input)
+			require.IsType(t, &objects.Boolean{}, actual)
+			assert.Equal(t, expected, actual.(*objects.Boolean).Value)
+			assert.Empty(t, res.String())
+		})
+	}
+
+	for input, expected := range map[string]float64{
+		`42.0 + 7.0`: 49.0,
+		`42.0 - 7.0`: 35.0,
+		`42.0 * 7.0`: 294.0,
+		`42.0 / 7.0`: 6.0,
+	} {
+		t.Run(input, func(t *testing.T) {
+			gofuzz.AddDataToCorpus("interpreter", []byte(input))
+
+			actual, res := eval(t, input)
+			require.IsType(t, &objects.Float{}, actual)
+			assert.Equal(t, expected, actual.(*objects.Float).Value)
+			assert.Empty(t, res.String())
+		})
+	}
 }
 
 func TestPrefixExpression(t *testing.T) {

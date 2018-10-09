@@ -45,6 +45,18 @@ func (il *IntegerLiteral) String() string {
 func (il *IntegerLiteral) node()       {}
 func (il *IntegerLiteral) expression() {}
 
+// FloatLiteral represents an float literal expression.
+type FloatLiteral struct {
+	Token tokens.Token //tokens.FLOAT
+	Value float64
+}
+
+func (fl *FloatLiteral) String() string {
+	return fl.Token.Literal
+}
+func (fl *FloatLiteral) node()       {}
+func (fl *FloatLiteral) expression() {}
+
 // StringLiteral represents a string literal expression.
 type StringLiteral struct {
 	Token tokens.Token // tokens.INT

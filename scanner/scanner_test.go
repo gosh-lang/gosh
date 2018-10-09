@@ -47,6 +47,12 @@ func TestScanner(t *testing.T) {
 		`42foo`: {
 			{Type: tokens.Illegal, Literal: `42foo`},
 		},
+		`42.foo`: {
+			{Type: tokens.Illegal, Literal: `42.foo`},
+		},
+		`42.24foo`: {
+			{Type: tokens.Illegal, Literal: `42.24foo`},
+		},
 		`"Invalid`: {
 			{Type: tokens.Illegal, Literal: `"Invalid`},
 		},
@@ -78,7 +84,13 @@ func TestScanner(t *testing.T) {
 			{Offset: 3, Type: tokens.Integer, Literal: `042`},
 			{Offset: 6, Type: tokens.EOF},
 		},
-		// TODO Float
+		`3.4 4.35 5. 1.42`: {
+			{Offset: 0, Type: tokens.Float, Literal: `3.4`},
+			{Offset: 4, Type: tokens.Float, Literal: `4.35`},
+			{Offset: 9, Type: tokens.Float, Literal: `5.`},
+			{Offset: 12, Type: tokens.Float, Literal: `1.42`},
+			{Offset: 16, Type: tokens.EOF},
+		},
 		// TODO Character, Rune, Byte?
 		`"Hello, world!"`: {
 			{Offset: 0, Type: tokens.String, Literal: `"Hello, world!"`},

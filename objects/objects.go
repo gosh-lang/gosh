@@ -33,6 +33,16 @@ func (i *Integer) Type() Type { return IntegerType }
 
 func (i *Integer) String() string { return strconv.Itoa(i.Value) }
 
+// Float represents float runtime object.
+type Float struct {
+	Value float64
+}
+
+// Type returns FloatType.
+func (f *Float) Type() Type { return FloatType }
+
+func (f *Float) String() string { return strconv.FormatFloat(f.Value, 'e', -1, 64) }
+
 // Boolean represents boolean runtime object.
 type Boolean struct {
 	Value bool
