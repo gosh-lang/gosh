@@ -4,9 +4,9 @@ package objects
 
 import "strconv"
 
-const _Type_name = "IntegerTypeBooleanTypeStringTypeFunctionTypeGoFunctionTypeContinueType"
+const _Type_name = "IntegerTypeFloatTypeBooleanTypeStringTypeFunctionTypeGoFunctionTypeContinueType"
 
-var _Type_index = [...]uint8{0, 11, 22, 32, 44, 58, 70}
+var _Type_index = [...]uint8{0, 11, 20, 31, 41, 53, 67, 79}
 
 func (i Type) String() string {
 	if i < 0 || i >= Type(len(_Type_index)-1) {
