@@ -221,7 +221,6 @@ func (i *Interpreter) evalInfixFloatExpression(operator string, left, right floa
 	}
 }
 
-
 func (i *Interpreter) evalInfixBooleanExpression(operator string, left, right bool) objects.Object {
 	switch operator {
 	case "==":
