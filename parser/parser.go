@@ -315,7 +315,7 @@ func (p *Parser) parseFloatLiteral() ast.Expression {
 		return nil
 	}
 
-	lit.Value = float64(value)
+	lit.Value = value
 	return lit
 }
 
