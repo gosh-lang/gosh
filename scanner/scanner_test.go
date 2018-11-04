@@ -60,7 +60,6 @@ func TestScanner(t *testing.T) {
 			{Type: tokens.EOF},
 		},
 
-		// FIXME fix code and enable those tests
 		"// Comment 1\n// Comment 2": {
 			{Offset: 0, Type: tokens.Comment, Literal: "// Comment 1"},
 			{Offset: 13, Type: tokens.Comment, Literal: "// Comment 2"},
@@ -210,10 +209,6 @@ func TestScanner(t *testing.T) {
 	for input, tokens := range testdata {
 		t.Run(input, func(t *testing.T) {
 			gofuzz.AddDataToCorpus("scanner", []byte(input))
-
-			if strings.HasPrefix(input, "// ") {
-				t.Skip("FIXME broken code")
-			}
 
 			offset := -1
 			for _, tok := range tokens {
