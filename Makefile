@@ -2,9 +2,13 @@ all: test
 
 init:
 	env GO111MODULE=on go mod vendor -v
+
+	# see tools.go
 	go install -v ./vendor/github.com/dvyukov/go-fuzz/go-fuzz \
 					./vendor/github.com/dvyukov/go-fuzz/go-fuzz-build \
+					./vendor/github.com/dvyukov/go-fuzz/go-fuzz-dep \
 					./vendor/golang.org/x/tools/cmd/stringer
+
 	curl https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(GOPATH)/bin v1.10.2
 
 install:
