@@ -60,8 +60,12 @@ func main() {
 	}
 
 	importPath := "gosh-lang.org/gosh/" + pack
-	file := filepath.Join("internal", "gofuzz", "workdir", pack+"_fuzz.zip")
 	workdir := filepath.Join("internal", "gofuzz", "workdir")
+	file := filepath.Join(workdir, pack+"_fuzz.zip")
+
+	if _, err := os.Stat(workdir); err != nil {
+		log.Fatalf("%s.\nRun tests with `make` to create working directory and initial go-fuzz corpus.", err)
+	}
 
 	run("go", "install", "-v", "-tags", "gofuzz", "./...")
 	run("go-fuzz-build", "-o="+file, importPath)
