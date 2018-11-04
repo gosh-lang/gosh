@@ -23,19 +23,24 @@ func logTokens(tokens []tokens.Token) {
 
 func Fuzz(data []byte) int {
 	input := string(data)
-	l := len(input) // TODO len([]rune(input))
+	l := len([]rune(input))
 	s, err := New(input, &Config{
 		SkipShebang: true,
 	})
 	if err != nil {
+		if err != errNulCharacter {
+			panic(err)
+		}
 		return 0
 	}
 
+	// check that 0 tokens are never returned
 	t := s.allTokens()
 	if len(t) == 0 {
 		panic("should not return 0 tokens")
 	}
 
+	// check that offsets are increasing
 	offset := -1
 	for _, tok := range t {
 		if offset >= tok.Offset {
@@ -45,22 +50,25 @@ func Fuzz(data []byte) int {
 		offset = tok.Offset
 	}
 
+	// check that last token is either Illegal in the middle of input, or EOF at the end
 	last := t[len(t)-1]
-	if last.Type == tokens.Illegal {
+	switch last.Type {
+	case tokens.Illegal:
 		if last.Offset == l {
 			logTokens(t)
 			panic(fmt.Sprintf("unexpected last illegal token offset: %d", last.Offset))
 		}
 		return 0
-	}
 
-	if last.Type != tokens.EOF {
+	case tokens.EOF:
+		if last.Offset != l {
+			logTokens(t)
+			panic(fmt.Sprintf("unexpected last token offset: %d (expected: %d)", last.Offset, l))
+		}
+		return 1 // correct input
+
+	default:
 		logTokens(t)
 		panic(fmt.Sprintf("unexpected last token: %s", last))
 	}
-	if last.Offset != l {
-		logTokens(t)
-		panic(fmt.Sprintf("unexpected last token offset: %d (expected: %d)", last.Offset, l))
-	}
-	return 1
 }
