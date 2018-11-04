@@ -1,6 +1,9 @@
 # Gosh
 
-[![Travis CI Build Status](https://travis-ci.org/gosh-lang/gosh.svg)](https://travis-ci.org/gosh-lang/gosh)
+[![Travis CI Build Status](https://travis-ci.org/gosh-lang/gosh.svg?branch=master)](https://travis-ci.org/gosh-lang/gosh)
+[![Code Coverage](https://codecov.io/gh/gosh-lang/gosh/branch/master/graph/badge.svg)](https://codecov.io/gh/gosh-lang/gosh)
+[![Go Report Card](https://goreportcard.com/badge/gosh-lang.org/gosh)](https://goreportcard.com/report/gosh-lang.org/gosh)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/gosh-lang/gosh/blob/master/CONTRIBUTING.md)
 
 Gosh is an interpreted language for Go ecosystem written in Go.
 
