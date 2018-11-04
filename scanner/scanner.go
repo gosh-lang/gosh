@@ -295,6 +295,7 @@ func (s *Scanner) NextToken() tokens.Token {
 		case '/':
 			tok.Type = tokens.Comment
 			tok.Literal = s.readLine()
+			return tok // l.readRune() already called by l.readLine(), so exit early
 		case '=':
 			s.readRune()
 			tok.Type = tokens.QuotientAssignment
