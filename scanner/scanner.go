@@ -20,7 +20,7 @@ type Scanner struct {
 	input  []rune
 
 	rPos            int  // current rune position in input
-	r               rune // current rune
+	r               rune // current rune; the same as input[rPos]
 	insertSemicolon bool // return next \n as semicolon
 }
 
@@ -63,6 +63,8 @@ var keywords = map[string]tokens.Type{
 	"false": tokens.False,
 }
 
+var errNulCharacter = fmt.Errorf("input contains NUL character (U+0000)")
+
 // New creates new scanner for the given Gosh source code.
 func New(input string, config *Config) (*Scanner, error) {
 	if config == nil {
@@ -72,7 +74,7 @@ func New(input string, config *Config) (*Scanner, error) {
 	runes := []rune(input)
 	for _, r := range runes {
 		if r == 0 {
-			return nil, fmt.Errorf("input contains NUL character (U+0000)")
+			return nil, errNulCharacter
 		}
 	}
 
@@ -219,7 +221,7 @@ func (s *Scanner) NextToken() tokens.Token {
 	case 0:
 		tok.Type = tokens.EOF
 	case '\n':
-		// s.skipWhitespace() exited on \n
+		// s.skipWhitespace() exited on \n, insert semicolon
 		tok.Type = tokens.Semicolon
 		tok.Literal = "\n"
 	case '#':
