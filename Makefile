@@ -24,4 +24,4 @@ test: install
 
 check: install
 	go run misc/check_license.go
-	env GO111MODULE=off golangci-lint run -v
+	golangci-lint run -v
