@@ -24,4 +24,4 @@ test: install
 
 check: install
 	go run misc/check_license.go
-	golangci-lint run -v
+	golangci-lint run -v --build-tags=gofuzz
