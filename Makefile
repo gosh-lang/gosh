@@ -8,8 +8,7 @@ init:
 					./vendor/github.com/dvyukov/go-fuzz/go-fuzz-build \
 					./vendor/github.com/dvyukov/go-fuzz/go-fuzz-dep \
 					./vendor/golang.org/x/tools/cmd/stringer
-
-	curl https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(GOPATH)/bin v1.10.2
+	curl https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(GOPATH)/bin v1.11.2
 
 install:
 	go generate ./...
