@@ -64,7 +64,7 @@ func main() {
 	file := filepath.Join(workdir, pack+"_fuzz.zip")
 
 	if _, err := os.Stat(workdir); err != nil {
-		log.Fatalf("%s.\nRun tests with `make` to create working directory and initial go-fuzz corpus.", err)
+		log.Fatalf("%s.\nRun tests with `make` to create working directory and initial go-fuzz corpus", err)
 	}
 
 	run("go", "install", "-v", "-tags", "gofuzz", "./...")
