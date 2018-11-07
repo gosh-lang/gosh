@@ -8,6 +8,7 @@
 // +build ignore
 
 // check_license checks that MPL license header in all files matches header in this file.
+
 package main
 
 import (

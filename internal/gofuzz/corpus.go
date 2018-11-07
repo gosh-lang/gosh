@@ -5,7 +5,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-package gofuzz // import "gosh-lang.org/gosh/internal/gofuzz"
+package gofuzz
 
 import (
 	"crypto/sha1" //nolint:gosec // go-fuzz uses SHA1 for non-cryptographic hashing

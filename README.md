@@ -1,5 +1,6 @@
 # Gosh
 
+[![GoDoc](https://godoc.org/gosh-lang.org/gosh?status.svg)](https://godoc.org/gosh-lang.org/gosh)
 [![Travis CI Build Status](https://travis-ci.org/gosh-lang/gosh.svg?branch=master)](https://travis-ci.org/gosh-lang/gosh)
 [![Code Coverage](https://codecov.io/gh/gosh-lang/gosh/branch/master/graph/badge.svg)](https://codecov.io/gh/gosh-lang/gosh)
 [![Go Report Card](https://goreportcard.com/badge/gosh-lang.org/gosh)](https://goreportcard.com/report/gosh-lang.org/gosh)

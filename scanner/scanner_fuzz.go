@@ -7,7 +7,7 @@
 
 // +build gofuzz
 
-package scanner // import "gosh-lang.org/gosh/scanner"
+package scanner
 
 import (
 	"fmt"

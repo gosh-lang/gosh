@@ -5,7 +5,14 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-package main
+// Package gosh implements gosh command.
+//  * https://godoc.org/gosh-lang.org/gosh/tokens
+//  * https://godoc.org/gosh-lang.org/gosh/scanner
+//  * https://godoc.org/gosh-lang.org/gosh/ast
+//  * https://godoc.org/gosh-lang.org/gosh/parser
+//  * https://godoc.org/gosh-lang.org/gosh/objects
+//  * https://godoc.org/gosh-lang.org/gosh/interpreter
+package main // import "gosh-lang.org/gosh"
 
 import (
 	"context"

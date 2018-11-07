@@ -5,30 +5,39 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-// +build gofuzz
-
-package interpreter
+package main
 
 import (
 	"context"
-	"io/ioutil"
+	"fmt"
+	"log"
+	"os"
 
+	"gosh-lang.org/gosh/interpreter"
 	"gosh-lang.org/gosh/objects"
 	"gosh-lang.org/gosh/parser"
 	"gosh-lang.org/gosh/scanner"
 )
 
-func Fuzz(data []byte) int {
-	s, err := scanner.New(string(data), &scanner.Config{
-		SkipShebang: true,
-	})
+func Example() {
+	code := `println("Hello, world!")`
+
+	s, err := scanner.New(code, nil)
 	if err != nil {
-		return 0
+		log.Fatal(err)
 	}
 
 	p := parser.New(s, nil)
 	program := p.ParseProgram()
-	i := New(nil)
-	i.Eval(context.TODO(), program, objects.NewScope(objects.Builtin(ioutil.Discard)))
-	return 0
+	if p.Errors() != nil {
+		log.Fatal(p.Errors())
+	}
+
+	i := interpreter.New(nil)
+	scope := objects.NewScope(objects.Builtin(os.Stdout))
+	res := i.Eval(context.Background(), program, scope)
+	fmt.Println("Eval result:", res)
+	// Output:
+	// Hello, world!
+	// Eval result: <nil>
 }
