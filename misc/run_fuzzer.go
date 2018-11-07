@@ -8,6 +8,7 @@
 // +build ignore
 
 // run_fuzzer runs go-fuzz for the given package.
+
 package main
 
 import (
