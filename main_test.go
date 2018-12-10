@@ -33,8 +33,8 @@ func Example() {
 		log.Fatal(p.Errors())
 	}
 
-	i := interpreter.New(nil)
 	scope := objects.NewScope(objects.Builtin(os.Stdout))
+	i := interpreter.New(nil)
 	res := i.Eval(context.Background(), program, scope)
 	fmt.Println("Eval result:", res)
 	// Output:

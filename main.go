@@ -6,12 +6,33 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 // Package gosh implements gosh command.
+//
+// To embed Gosh into your Go program use subpackages:
 //  * https://godoc.org/gosh-lang.org/gosh/tokens
 //  * https://godoc.org/gosh-lang.org/gosh/scanner
 //  * https://godoc.org/gosh-lang.org/gosh/ast
 //  * https://godoc.org/gosh-lang.org/gosh/parser
 //  * https://godoc.org/gosh-lang.org/gosh/objects
 //  * https://godoc.org/gosh-lang.org/gosh/interpreter
+//
+// Small example:
+//	code := `println("Hello, world!")`
+//
+//	s, err := scanner.New(code, nil)
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//
+//	p := parser.New(s, nil)
+//	program := p.ParseProgram()
+//	if p.Errors() != nil {
+//		log.Fatal(p.Errors())
+//	}
+//
+//	scope := objects.NewScope(objects.Builtin(os.Stdout))
+//	i := interpreter.New(nil)
+//	res := i.Eval(context.Background(), program, scope)
+//	fmt.Println("Eval result:", res)
 package main // import "gosh-lang.org/gosh"
 
 import (
