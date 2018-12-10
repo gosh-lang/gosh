@@ -18,8 +18,11 @@ install:
 
 test: install
 	go build -v -tags gofuzz ./...
+	go test -v ./tokens
 	go test -v ./scanner
+	go test -v ./ast
 	go test -v ./parser
+	go test -v ./objects
 	go test -v ./interpreter
 	go test -v -covermode=count -coverprofile=cover.out ./...
 
